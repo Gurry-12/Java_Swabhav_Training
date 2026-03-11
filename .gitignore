@@ -2,8 +2,7 @@
 bin/
 *.class
 
-# Compiled class files
-*.class
+*.settings
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
