@@ -8,8 +8,8 @@ public class NumberGuesserGame {
 	/*
 	 * generate random number method
 	 */
-	public static int generateRandomNumber() {
-		return new Random().nextInt(100) + 1;
+	public static int generateRandomNumber(Random random) {
+		return random.nextInt(100) + 1;
 	}
 
 	/*
@@ -56,6 +56,7 @@ public class NumberGuesserGame {
 	public static void main(String[] args) {
 
 		Scanner scanner = new Scanner(System.in);
+		Random random = new Random();
 		boolean playAgain = true;
 
 		System.out.println("Welcome to Number Guesser World. ");
@@ -63,7 +64,7 @@ public class NumberGuesserGame {
 		while (playAgain) {
 			System.out.println("------------------------------------------");
 
-			int generatedNum = generateRandomNumber();
+			int generatedNum = generateRandomNumber(random);
 
 			guessNumberGame(scanner, generatedNum);
 
