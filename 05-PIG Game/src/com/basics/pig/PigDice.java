@@ -10,7 +10,7 @@ public class PigDice {
 	static final int DIE_FACES = 6;
 
 	/*
-	 * Print the welcome message 
+	 * Print the welcome message
 	 */
 	public static void printWelcome() {
 		System.out.println("============================");
@@ -22,16 +22,13 @@ public class PigDice {
 		System.out.println("* If you hold, you save all points for the turn.");
 	}
 
-	/*
-	 * Prints the final result after game ends
-	 */
 	public static void printGameResult(int turnCount) {
 		System.out.println("\nYou finished in " + turnCount + " turns!");
 		System.out.println("Game over!");
 	}
 
 	/*
-	 * Rolls the dice 
+	 * Rolls the dice
 	 */
 	public static int rollDice(Random random) {
 		return random.nextInt(DIE_FACES) + 1;
@@ -46,11 +43,11 @@ public class PigDice {
 			String choice = scanner.next().toLowerCase();
 
 			switch (choice) {
-			case "r" :
-			case "h" : {
+			case "r":
+			case "h": {
 				return choice;
 			}
-			default :
+			default:
 				System.out.println("Invalid input. Enter 'r' to roll or 'h' to hold.");
 			}
 		}
@@ -65,13 +62,14 @@ public class PigDice {
 			String input = scanner.next().toLowerCase();
 
 			switch (input) {
-			case "y" : {
+			case "y": {
 				return true;
 			}
-			case "n" : {
+			case "n": {
 				return false;
 			}
-			default : System.out.println("Invalid input. Enter 'y' or 'n'.");
+			default:
+				System.out.println("Invalid input. Enter 'y' or 'n'.");
 			}
 		}
 	}
@@ -89,7 +87,7 @@ public class PigDice {
 
 			if (choice.equals("h")) {
 				System.out.println("Score for turn: " + turnScore);
-				return turnScore; 
+				return turnScore;
 			}
 
 			int die = rollDice(random);
@@ -97,7 +95,7 @@ public class PigDice {
 
 			if (die == PIG_ROLL) {
 				System.out.println("Turn over. No score.");
-				return 0; 
+				return 0;
 			}
 
 			turnScore += die;
