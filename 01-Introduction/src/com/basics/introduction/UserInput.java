@@ -1,16 +1,29 @@
 package com.basics.introduction;
 
-/**
- * TODO: Practice taking user input using Scanner
- * 
- * Instructions:
- * 1. Import Scanner class
- * 2. Create a Scanner object
- * 3. Take different types of input (int, double, String)
- * 4. Print the input values
- * 5. Don't forget to close the scanner
- */
+import java.util.Scanner;
+
+
 public class UserInput {
-    // Write your code here
+    
+public static void main(String[] args) {
+	
+	Scanner scanner = new Scanner(System.in);
+	
+	System.out.println("Enter a String.");
+	String string = scanner.nextLine();
+	System.out.println(string);
+	
+	System.out.println("Enter Interger");
+	int integer = scanner.nextInt();
+	System.out.println(integer);
+	
+	System.out.println("Enter double");
+	double doubleValue = scanner.nextDouble();
+	System.out.println(doubleValue);
+	
+	scanner.close();
+}
+	
+	
     
 }
