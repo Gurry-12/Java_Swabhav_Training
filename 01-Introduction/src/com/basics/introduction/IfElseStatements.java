@@ -1,16 +1,36 @@
 package com.basics.introduction;
 
-/**
- * TODO: Practice if-else conditional statements
- * 
- * Instructions:
- * 1. Take a number as input
- * 2. Check if it's positive, negative, or zero
- * 3. Check if it's even or odd
- * 4. Check if it's divisible by 5
- * 5. Use if, else if, and else appropriately
- */
+import java.util.Scanner;
+
+
 public class IfElseStatements {
-    // Write your code here
-    
+	public static void main(String[] args) {
+
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter a Number: ");
+		int number = scanner.nextInt();
+
+		if (number > 0) {
+			System.out.println(number + " is Positive");
+		} else if (number < 0) {
+			System.out.println(number + " is Negative");
+		} else {
+			System.out.println(number + " is Zero");
+		}
+
+		if (number % 5 == 0) {
+			System.out.println(number + " is Divisible by 5");
+		} else {
+			System.out.println(number + " is not Divisible by 5");
+		}
+
+		if (number % 2 == 0) {
+			System.out.println(number + " is Even");
+		} else {
+			System.out.println(number + " is Odd");
+		}
+		
+		scanner.close();
+	}
+
 }

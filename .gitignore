@@ -81,3 +81,7 @@ credentials.json
 *.jpg
 assignment*.zip
 submission/
+
+**/Challenge*.java
+**/Task*.java
+**/Rule*.java
