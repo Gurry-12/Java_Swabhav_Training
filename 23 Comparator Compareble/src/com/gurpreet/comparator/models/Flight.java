@@ -7,6 +7,13 @@ public class Flight implements Comparable<Flight> {
 	
 	
 	public Flight(String airline, double fare) {
+		if(airline == null || airline.trim().isEmpty()) {
+			throw new IllegalArgumentException("Airline Can't be empty");
+		}
+		
+		if(fare < 0) {
+			throw new IllegalArgumentException("Fare can't be negative");
+		}
 		this.airline = airline;
 		this.fare = fare;
 	}

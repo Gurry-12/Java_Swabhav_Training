@@ -15,7 +15,7 @@ public class CandidateTest {
         List<Candidate> candidates = new ArrayList<>();
 
         System.out.println("=========================================");
-        System.out.println("     Candidate List - User Input");
+        System.out.println("     		  Candidate List");
         System.out.println("=========================================");
 
         System.out.println("How many candidates do you want to add? ");
