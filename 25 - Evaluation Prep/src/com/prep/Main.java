@@ -46,6 +46,20 @@ class Math {
 	}
 
 }
+@FunctionalInterface
+interface A {
+
+    void m1();
+
+}
+ 
+@FunctionalInterface
+interface B extends A {
+
+    // still functional (only one abstract method)
+
+}
+ 
 
 public class Main {
 

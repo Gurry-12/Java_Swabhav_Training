@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.gurpreet.exceptions.InvalidIdException;
-import com.gurpreet.exceptions.InvalidSalaryException;
-import com.gurpreet.models.Employee;
-import com.gurpreet.models.EmployeeManagementSystem;
+import com.gurpreet.exception.InvalidIdException;
+import com.gurpreet.exception.InvalidSalaryException;
+import com.gurpreet.model.Employee;
+import com.gurpreet.service.EmployeeManagementSystem;
 
 public class EmployeeManagementTest {
 
@@ -22,7 +22,7 @@ public class EmployeeManagementTest {
 		System.out.println("     EMPLOYEE MANAGEMENT ANALYTICS SYSTEM");
 		System.out.println("==================================================\n");
 		System.out.println("System initialized with no employees.\n");
-		System.out.println("Please use Option 9 to add employees.\n");
+		System.out.println("Please use Option 1 to add employees.\n");
 
 		try {
 			do {
@@ -92,7 +92,7 @@ public class EmployeeManagementTest {
 			e.printStackTrace();
 		} finally {
 			scanner.close();
-			System.out.println("Scanner closed successfully.");
+			
 		}
 	}
 

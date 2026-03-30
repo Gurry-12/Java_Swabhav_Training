@@ -1,14 +1,15 @@
-package com.gurpreet.models;
+package com.gurpreet.service;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import com.gurpreet.exceptions.InvalidIdException;
-import com.gurpreet.exceptions.InvalidSalaryException;
+import com.gurpreet.enums.Department;
+import com.gurpreet.exception.InvalidIdException;
+import com.gurpreet.exception.InvalidSalaryException;
+import com.gurpreet.model.Employee;
 import com.gurpreet.utility.Helpers;
 
 public class EmployeeManagementSystem {
@@ -48,15 +49,13 @@ public class EmployeeManagementSystem {
 	public void findHighestPaidEmployee(List<Employee> employees) {
 		System.out.println("\n--- Highest Paid Employee ---");
 		if (employees.isEmpty()) {
-            System.out.println("No employees found.");
-            return;
-        }
+			System.out.println("No employees found.");
+			return;
+		}
 
-        Employee highestPaid = employees.stream()
-                .max(Comparator.comparingDouble(Employee::getSalary))
-                .orElse(null);
-        
-		if(highestPaid == null) {
+		Employee highestPaid = employees.stream().max(Comparator.comparingDouble(Employee::getSalary)).orElse(null);
+
+		if (highestPaid == null) {
 			System.out.println("No employees found.");
 			return;
 		}
@@ -106,9 +105,9 @@ public class EmployeeManagementSystem {
 		System.out.println("\n=== Add New Employee ===");
 
 		try {
-			int employeeId = getValidEmployeeId(scanner, employees);
+			String employeeId = getValidEmployeeId(scanner, employees);
 			String name = getValidName(scanner);
-			String department = getValidDepartment(scanner);
+			Department department = getValidDepartment(scanner);
 			double salary = getValidSalary(scanner);
 			int experience = getValidExperience(scanner);
 			boolean activeStatus = getValidActiveStatus(scanner);
@@ -127,26 +126,19 @@ public class EmployeeManagementSystem {
 	}
 
 	// Helper methods for validated input
-	private int getValidEmployeeId(Scanner scanner, List<Employee> employees) {
+	private String getValidEmployeeId(Scanner scanner, List<Employee> employees) {
 		while (true) {
-			System.out.print("Enter Employee ID (positive integer): ");
-			if (scanner.hasNextInt()) {
-				int id = scanner.nextInt();
-				scanner.nextLine();
-				if (id <= 0) {
-					System.out.println("ID must be positive.");
-					continue;
-				}
-				// Check for duplicate ID
-				if (employees.stream().anyMatch(e -> e.getEmployeeId() == id)) {
-					System.out.println("Employee with this ID already exists.");
-					continue;
-				}
-				return id;
-			} else {
-				System.out.println("Invalid input. Please enter a number.");
-				scanner.nextLine();
+			System.out.print("Enter Employee ID (e.g. EMP123): ");
+			String id = scanner.nextLine().trim().toUpperCase();
+			if (id.isEmpty()) {
+				System.out.println("Employee ID cannot be empty.");
+				continue;
 			}
+			if (employees.stream().anyMatch(employee -> employee.getEmployeeId().equals(id))) {
+				System.out.println("Employee ID already exists.");
+				continue;
+			}
+			return id;
 		}
 	}
 
@@ -161,15 +153,15 @@ public class EmployeeManagementSystem {
 		}
 	}
 
-	private String getValidDepartment(Scanner scanner) {
-		while (true) {
-			System.out.print("Enter Department: ");
-			String dept = Helpers.validateStringLettersOnly(scanner);
-			if (!dept.isEmpty()) {
-				return dept;
-			}
-			System.out.println("Department cannot be empty.");
+	private Department getValidDepartment(Scanner scanner) {
+		Department[] departments = Department.values();
+
+		System.out.println("Select Department:");
+		for (int i = 0; i < departments.length; i++) {
+			System.out.println((i + 1) + " : " + departments[i]);
 		}
+		int choice = Helpers.validateIntRange(scanner, 1, departments.length);
+		return departments[choice - 1];
 	}
 
 	private double getValidSalary(Scanner scanner) {

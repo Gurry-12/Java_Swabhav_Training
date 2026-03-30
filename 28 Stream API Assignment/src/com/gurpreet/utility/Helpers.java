@@ -130,30 +130,7 @@ public class Helpers {
 			return input;
 		}
 	}
-
-	public static String validateBookId(Scanner scanner) {
-		final Pattern BOOK_ID_PATTERN = Pattern.compile("^(MZ|AC)\\d{5}$");
-
-	    while (true) {
-	        System.out.print("Enter book ID (MZ12345 or AC12345 format): ");
-	        String input = scanner.nextLine().trim().toUpperCase();
-
-	        if (input.isEmpty()) {
-	            System.out.println("Input cannot be empty. Please try again.");
-	            continue;
-	        }
-
-	        if (BOOK_ID_PATTERN.matcher(input).matches()) {
-	            return input;
-	        }
-
-	        System.out.println("Invalid format. Use MZ12345 or AC12345 (prefix + exactly 5 digits).");
-	    }
-	}
-	// ────────────────────────────────────────────────
-	// Utility / convenience methods
-	// ────────────────────────────────────────────────
-
+	
 	/**
 	 * Pauses execution until user presses Enter
 	 */
@@ -196,25 +173,6 @@ public class Helpers {
         return year;
     }
 	
-	public static String validatePassengerId(Scanner scanner) {
-	    final Pattern PASSENGER_ID_PATTERN = Pattern.compile("^(DP|TP)\\d{4,}$");
-
-	    while (true) {
-	        System.out.print("Enter Passenger ID (DP1000 or TP5000 format): ");
-	        String input = scanner.nextLine().trim().toUpperCase();
-
-	        if (input.isEmpty()) {
-	            System.out.println("Input cannot be empty. Please try again.");
-	            continue;
-	        }
-
-	        if (PASSENGER_ID_PATTERN.matcher(input).matches()) {
-	            return input;
-	        }
-
-	        System.out.println("Invalid format. Use DP/TP prefix followed by digits (e.g. DP1000, TP5000).");
-	    }
-	}
 	
 	
 }

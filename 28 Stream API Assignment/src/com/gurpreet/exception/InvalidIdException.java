@@ -1,4 +1,4 @@
-package com.gurpreet.exceptions;
+package com.gurpreet.exception;
 
 public class InvalidIdException extends Exception{
 
