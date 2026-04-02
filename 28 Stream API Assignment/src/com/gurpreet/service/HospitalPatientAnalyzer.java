@@ -120,7 +120,7 @@ public class HospitalPatientAnalyzer {
 			System.out.println(newPatient);
 
 		} catch (InvalidIdException |InvalidBillAmountException e) {
-			System.out.println("Error: " + ((Throwable) e).getMessage());
+			System.out.println("Error: " +	e.getMessage());
 		} catch (Exception e) {
 			System.out.println("Unexpected error: " + e.getMessage());
 		}

@@ -1,6 +1,6 @@
 package com.gurpreet.miniproject.test;
 
-import com.gurpreet.miniproject.interfaces.Controllable;
+import com.gurpreet.miniproject.models.Controllable;
 import com.gurpreet.miniproject.models.Fan;
 import com.gurpreet.miniproject.models.Light;
 import com.gurpreet.miniproject.models.Speaker;

@@ -1,6 +1,5 @@
-package com.gurpreet.miniproject.tictactoe.players;
+package com.gurpreet.miniproject.tictactoe.models;
 
-import com.gurpreet.miniproject.tictactoe.models.Board;
 import com.gurpreet.miniproject.tictactoe.enums.State;
 
 public abstract class Player {

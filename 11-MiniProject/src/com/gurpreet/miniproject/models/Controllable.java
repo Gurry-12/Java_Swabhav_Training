@@ -1,4 +1,4 @@
-package com.gurpreet.miniproject.interfaces;
+package com.gurpreet.miniproject.models;
 
 public interface Controllable {
 

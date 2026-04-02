@@ -1,7 +1,5 @@
 package com.gurpreet.miniproject.models;
 
-import com.gurpreet.miniproject.interfaces.Controllable;
-
 public class Light implements Controllable {
 
 	@Override

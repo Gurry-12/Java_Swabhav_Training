@@ -1,7 +1,7 @@
-package com.gurpreet.miniproject.tictactoe.players;
+package com.gurpreet.miniproject.tictactoe.models;
 
-import com.gurpreet.miniproject.tictactoe.models.Board;
 import com.gurpreet.miniproject.tictactoe.enums.State;
+
 import java.util.Random;
 
 public class AIPlayer extends Player {

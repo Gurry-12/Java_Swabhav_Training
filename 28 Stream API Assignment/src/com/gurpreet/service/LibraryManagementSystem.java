@@ -8,7 +8,6 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.gurpreet.enums.Department;
 import com.gurpreet.enums.Genre;
 import com.gurpreet.exception.InvalidIdException;
 import com.gurpreet.exception.InvalidPriceException;
@@ -118,27 +117,26 @@ public class LibraryManagementSystem {
 			System.out.println("\nBook added to inventory successfully!");
 			System.out.println(newBook);
 
-		} catch (InvalidIdException |InvalidPriceException e) {
-			System.out.println("Error: " + ((Throwable) e).getMessage());
+		} catch (InvalidIdException | InvalidPriceException e) {
+			System.out.println("Error: " + e.getMessage());
 		} catch (Exception e) {
 			System.out.println("Unexpected error: " + e.getMessage());
 		}
 	}
 
 	private String validateBookId(Scanner scanner, List<Book> books) {
-			while (true) {
-				System.out.print("Enter Book ID (e.g. BK123): ");
-				String id = scanner.nextLine().trim().toUpperCase();
-				if (id.isEmpty()) {
-					System.out.println("Book ID cannot be empty.");
-					continue;
-				}
-				if (books.stream().anyMatch(book -> book.getBookId().equals(id))) {
-					System.out.println("Book ID already exists.");
-					continue;
-				}
-				return id;
+		while (true) {
+			System.out.print("Enter Book ID (e.g. BK123): ");
+			String id = scanner.nextLine().trim().toUpperCase();
+			if (id.isEmpty()) {
+				System.out.println("Book ID cannot be empty.");
+				continue;
 			}
+			if (books.stream().anyMatch(book -> book.getBookId().equals(id))) {
+				System.out.println("Book ID already exists.");
+				continue;
+			}
+			return id;
 		}
 	}
 

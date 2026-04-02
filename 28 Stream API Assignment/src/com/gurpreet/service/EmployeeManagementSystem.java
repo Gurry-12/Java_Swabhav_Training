@@ -119,7 +119,7 @@ public class EmployeeManagementSystem {
 			System.out.println(newEmployee);
 
 		} catch (InvalidIdException | InvalidSalaryException e) {
-			System.out.println("Error: " + ((Throwable) e).getMessage());
+			System.out.println("Error: " + e.getMessage());
 		} catch (Exception e) {
 			System.out.println("Unexpected error: " + e.getMessage());
 		}
