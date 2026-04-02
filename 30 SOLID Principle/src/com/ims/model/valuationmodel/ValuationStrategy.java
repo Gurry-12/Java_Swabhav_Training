@@ -1,4 +1,4 @@
-package com.ims.model.valuation;
+package com.ims.model.valuationmodel;
 
 import java.util.List;
 

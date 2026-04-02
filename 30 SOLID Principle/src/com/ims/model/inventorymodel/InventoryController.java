@@ -1,9 +1,9 @@
-package com.ims.model;
+package com.ims.model.inventorymodel;
 
 import java.util.Scanner;
 
-import com.ims.model.services.InventoryService;
-import com.ims.test.Helpers;
+import com.ims.model.Product;
+import com.ims.model.ProductType;
 
 public class InventoryController {
 
@@ -29,16 +29,34 @@ public class InventoryController {
             int choice = Helpers.validateInt(scanner);
 
             switch (choice) {
-                case 1 -> addProduct(scanner);
-                case 2 -> addStock(scanner);
-                case 3 -> removeStock(scanner);
-                case 4 -> calculateValuation();
-                case 5 -> inventoryService.showInventory();
-                case 6 -> {
+                case 1:
+                	addProduct(scanner);
+                	break;
+                	
+                case 2:
+                	addStock(scanner);
+                	break;
+                	
+                case 3: 
+                	removeStock(scanner);
+                	break;
+                		
+                case 4: 
+                	calculateValuation();
+                	break;
+                	
+                case 5:
+                	inventoryService.showInventory();
+                	break;
+                	
+                case 6  :
+                {
                     isRun = false;
                     renderer.showMessage("Thank you for visiting");
+                    break;
                 }
-                default -> renderer.showMessage("Please enter valid choice.");
+                default:
+                	renderer.showMessage("Please enter valid choice.");
             }
         }
     }
@@ -82,6 +100,7 @@ public class InventoryController {
         }
     }
 
+    
     private ProductType getProductType(Scanner scanner) {
         ProductType[] types = ProductType.values();
         renderer.showMessage("Select Product Type:");

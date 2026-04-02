@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.ims.model.InventoryController;
-import com.ims.model.MenuRenderer;
+import com.ims.model.inventorymodel.InventoryController;
+import com.ims.model.inventorymodel.InventoryService;
+import com.ims.model.inventorymodel.MenuRenderer;
+import com.ims.model.inventorymodel.ReorderService;
 import com.ims.model.notificationmodel.EmailNotifier;
 import com.ims.model.notificationmodel.Notifier;
 import com.ims.model.notificationmodel.SMSNotifier;
-import com.ims.model.services.InventoryService;
-import com.ims.model.services.ReorderService;
-import com.ims.model.valuation.FIFOValuation;
-import com.ims.model.valuation.ValuationStrategy;
+import com.ims.model.valuationmodel.FIFOValuation;
+import com.ims.model.valuationmodel.ValuationStrategy;
 
 public class Main {
 
