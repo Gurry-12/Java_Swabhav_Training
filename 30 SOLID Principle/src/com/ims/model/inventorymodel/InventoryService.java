@@ -1,10 +1,10 @@
-package com.ims.model.services;
+package com.ims.model.inventorymodel;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import com.ims.model.Product;
-import com.ims.model.valuation.ValuationStrategy;
+import com.ims.model.valuationmodel.ValuationStrategy;
 
 public class InventoryService {
 

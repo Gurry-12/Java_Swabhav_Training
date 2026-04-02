@@ -1,4 +1,4 @@
-package com.ims.test;
+package com.ims.model.inventorymodel;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;

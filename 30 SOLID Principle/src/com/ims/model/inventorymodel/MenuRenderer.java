@@ -1,4 +1,4 @@
-package com.ims.model;
+package com.ims.model.inventorymodel;
 
 public class MenuRenderer {
 

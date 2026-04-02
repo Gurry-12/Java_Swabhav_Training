@@ -1,4 +1,4 @@
-package com.ims.model.services;
+package com.ims.model.inventorymodel;
 
 import java.util.List;
 
