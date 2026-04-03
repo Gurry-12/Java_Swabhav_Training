@@ -26,6 +26,7 @@ public class InventoryService {
 		this.valuationStrategy = strategy;
 	}
 
+
 	public Product addProduct(String name, ProductType type, int threshold, int stock, double price)
 			throws DuplicateProductException {
 		String normalizedName = name.trim();
@@ -33,7 +34,7 @@ public class InventoryService {
 		boolean nameExists = inventory.stream().anyMatch(p -> p.getName().equalsIgnoreCase(normalizedName));
 
 		if (nameExists) {
-			throw new DuplicateProductException("Product already exists: '" + normalizedName + "'");
+			throw new DuplicateProductException(normalizedName);
 		}
 
 		Product product = new Product(normalizedName, type, threshold, stock, price);
