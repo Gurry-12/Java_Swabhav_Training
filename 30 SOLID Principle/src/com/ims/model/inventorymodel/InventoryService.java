@@ -69,4 +69,8 @@ public class InventoryService {
 		return inventory.stream().filter(p -> p.getId() == productId).findFirst()
 				.orElseThrow(() -> new ProductNotFoundException("Product not found with ID: " + productId));
 	}
+
+	public String getValuationStrategyName() {
+        return valuationStrategy.getClass().getSimpleName();
+    }
 }
