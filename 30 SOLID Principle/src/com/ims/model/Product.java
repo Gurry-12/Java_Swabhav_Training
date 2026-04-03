@@ -1,7 +1,10 @@
 package com.ims.model;
 
+import com.ims.model.exception.InsufficientStockException;
+
 public class Product {
 
+	private static int next = 1;
 	private int id;
 	private String name;
 	private ProductType productType;
@@ -9,17 +12,16 @@ public class Product {
 	private int stock;
 	private double price;
 
-	public Product(int id, String name, ProductType productType, int threshold, double price) {
-		this.id = id;
+	public Product(String name, ProductType productType, int threshold, int stock, double price) {
+		this.id = next++;
 		this.name = name;
 		this.productType = productType;
 		this.threshold = threshold;
 		this.price = price;
-		this.stock = 0;
+		this.stock = stock;
 	}
-	
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -47,12 +49,10 @@ public class Product {
 		stock += quantity;
 	}
 
-	public void removeStock(int quantity) {
+	public void removeStock(int quantity) throws InsufficientStockException {
 		if (quantity > stock) {
-			System.out.println("quantity can not be more than stock");
-			return;
+			throw new InsufficientStockException(quantity, stock);
 		}
-
 		stock -= quantity;
 	}
 
@@ -62,20 +62,22 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return String.format("Id : %-2d | Name : %-2s | Type : %-2s | Threshold : %-2d | Stock : %-2d | Price %-2.2f",
-				id, name, productType.toString(), threshold, stock, price);
+		return String.format(
+				"Id : %-2d | Name : %-15s | Type : %-12s | Threshold : %-4d | Stock : %-4d | Price : %-6.2f", id, name,
+				productType.toString(), threshold, stock, price);
 	}
-	
+
 	@Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (!(object instanceof Product other)) return false;
-        return this.id == other.id && this.name.equalsIgnoreCase(other.name);           
-    }
+	public boolean equals(Object object) {
+		if (this == object)
+			return true;
+		if (!(object instanceof Product other))
+			return false;
+		return this.id == other.id;
+	}
 
-    @Override
-    public int hashCode() {
-        return Integer.hashCode(id);          
-    }
-
+	@Override
+	public int hashCode() {
+		return Integer.hashCode(id);
+	}
 }

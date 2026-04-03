@@ -13,11 +13,11 @@ public class Helpers {
 		while (true) {
 			if (!scanner.hasNextInt()) {
 				System.out.print("Please enter a valid integer: ");
-				scanner.next(); // discard invalid input
+				scanner.next();
 				continue;
 			}
 			int value = scanner.nextInt();
-			scanner.nextLine(); // consume newline
+			scanner.nextLine();
 			return value;
 		}
 	}
@@ -36,7 +36,7 @@ public class Helpers {
 	public static int validateIntNonNegative(Scanner scanner) {
 		while (true) {
 			int value = validateInt(scanner);
-			if (value < 1) {
+			if (value < 0) { // was < 1 — fixed
 				System.out.print("Value cannot be negative: ");
 				continue;
 			}
@@ -63,11 +63,11 @@ public class Helpers {
 		while (true) {
 			if (!scanner.hasNextDouble()) {
 				System.out.print("Please enter a valid decimal number: ");
-				scanner.next(); // discard invalid
+				scanner.next();
 				continue;
 			}
 			double value = scanner.nextDouble();
-			scanner.nextLine(); // consume newline
+			scanner.nextLine();
 			return value;
 		}
 	}
@@ -101,7 +101,7 @@ public class Helpers {
 	public static String validateStringNonEmpty(Scanner scanner) {
 		while (true) {
 			String input = scanner.nextLine().trim();
-			if (input.isEmpty() || input.isBlank()) {
+			if (input.isEmpty()) {
 				System.out.print("Input cannot be empty. Please enter a value: ");
 				continue;
 			}
@@ -120,15 +120,36 @@ public class Helpers {
 		}
 	}
 
-	public static String validateStringAlphanumeric(Scanner scanner) {
+	public static String validateName(Scanner scanner) {
 		while (true) {
-			String input = validateStringNonEmpty(scanner);
-			if (!Pattern.matches("[a-zA-Z0-9\\s\\-']+", input)) {
-				System.out.print("Only letters, numbers, spaces, hyphens and apostrophes allowed: ");
+			String input = validateStringLettersOnly(scanner);
+
+			if (input.length() < 3) {
+				System.out.println("Please enter atleast 3 letters");
+				continue;
+			}
+			return input;
+		}
+
+	}
+
+	public static int validateThreshold(Scanner scanner) {
+		return validateIntPositive(scanner);
+	}
+
+	public static int validateStock(Scanner scanner, int threshold) {
+		while (true) {
+			int input = validateIntPositive(scanner);
+
+			if (input < threshold) {
+				System.out.println("Quantity can't be less then threshold.");
 				continue;
 			}
 			return input;
 		}
 	}
 
+	public static double validatePrice(Scanner scanner) {
+		return validateDoublePositive(scanner);
+	}
 }

@@ -1,103 +1,75 @@
 package com.ims.model.inventorymodel;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.ims.model.Product;
+import com.ims.model.ProductType;
+import com.ims.model.exception.DuplicateProductException;
+import com.ims.model.exception.InsufficientStockException;
+import com.ims.model.exception.ProductNotFoundException;
 import com.ims.model.valuationmodel.ValuationStrategy;
 
 public class InventoryService {
 
-	private ReorderService reorderService;
+	private final ReorderService reorderService;
 	private ValuationStrategy valuationStrategy;
-
-	List<Product> inventory = new LinkedList<>();
+	private final List<Product> inventory = new LinkedList<>();
 
 	public InventoryService(ReorderService reorderService, ValuationStrategy valuationStrategy) {
 		this.reorderService = reorderService;
 		this.valuationStrategy = valuationStrategy;
 	}
 
-	public double calculateValuation() {
-		return valuationStrategy.calculate(inventory);
+	public void setValuationStrategy(ValuationStrategy strategy) {
+		this.valuationStrategy = strategy;
 	}
 
-	public void removeInventory(int productId, int quantity) {
-		if (inventory.isEmpty()) {
-			System.out.println("No product registerd yet");
-			return;
+	public String getValuationStrategyName() {
+		return valuationStrategy.getClass().getSimpleName();
+	}
+
+	public Product addProduct(String name, ProductType type, int threshold, int stock, double price)
+			throws DuplicateProductException {
+		String normalizedName = name.trim();
+
+		boolean nameExists = inventory.stream().anyMatch(p -> p.getName().equalsIgnoreCase(normalizedName));
+
+		if (nameExists) {
+			throw new DuplicateProductException(normalizedName);
 		}
 
+		Product product = new Product(normalizedName, type, threshold, stock, price);
+		inventory.add(product);
+		return product;
+	}
+
+	public void addInventory(int productId, int quantity) throws ProductNotFoundException {
 		Product product = findProductById(productId);
-		if (product == null) {
-			System.out.println("Product with ID " + productId + " not found in inventory.");
-			return;
-		}
+		product.addStock(quantity);
+	}
 
+	public void removeInventory(int productId, int quantity)
+			throws ProductNotFoundException, InsufficientStockException {
+		Product product = findProductById(productId);
 		product.removeStock(quantity);
-		System.out.println("Stock updated: Removed " + quantity + " units of '" + product.getName() + "'");
 
 		if (product.getStock() < product.getThreshold()) {
 			reorderService.triggerReorder(product);
 		}
-
 	}
 
-	public void addInventory(int productId, int quantity) {
-
-		if (inventory.isEmpty()) {
-			System.out.println("No product registerd yet");
-			return;
-		}
-
-		Product product = findProductById(productId);
-
-		if (product == null) {
-			System.out.println("Product with ID " + productId + " not found in inventory.");
-			return;
-		}
-		product.addStock(quantity);
-		System.out.println("Stock updated: Added " + quantity + " units of '" + product.getName() + "'");
+	public double calculateValuation() {
+		return valuationStrategy.calculate(inventory);
 	}
 
-	public boolean addProduct(Product newProduct) {
-		if (newProduct == null) {
-			System.out.println("Cannot add null product to inventory.");
-			return false;
-		}
-		
-		boolean nameExists = inventory.stream()
-                .anyMatch(p -> p.getName().equalsIgnoreCase(newProduct.getName()));
-
-        if (nameExists) {
-            System.out.println("Error: A product with the name '" + newProduct.getName() + "' already exists.");
-            return false;
-        }
-		inventory.add(newProduct);
-		System.out.println("Product added: " + newProduct.getName() + " (ID: " + newProduct.getId() + ")");
-		return true;
+	public List<Product> getInventory() {
+		return Collections.unmodifiableList(inventory);
 	}
 
-	public void showInventory() {
-
-		if (inventory.isEmpty()) {
-			System.out.println("No product Found ");
-			return;
-		}
-
-		for (Product product : inventory) {
-			System.out.println(product);
-			System.out.println("------------------------------------------------");
-		}
-
-	}
-
-	private Product findProductById(int productId) {
-		for (Product product : inventory) {
-			if (product.getId() == productId) {
-				return product;
-			}
-		}
-		return null;
+	private Product findProductById(int productId) throws ProductNotFoundException {
+		return inventory.stream().filter(p -> p.getId() == productId).findFirst()
+				.orElseThrow(() -> new ProductNotFoundException(productId));
 	}
 }
