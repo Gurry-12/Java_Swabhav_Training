@@ -26,10 +26,6 @@ public class InventoryService {
 		this.valuationStrategy = strategy;
 	}
 
-	public String getValuationStrategyName() {
-		return valuationStrategy.getClass().getSimpleName();
-	}
-
 	public Product addProduct(String name, ProductType type, int threshold, int stock, double price)
 			throws DuplicateProductException {
 		String normalizedName = name.trim();
@@ -37,7 +33,7 @@ public class InventoryService {
 		boolean nameExists = inventory.stream().anyMatch(p -> p.getName().equalsIgnoreCase(normalizedName));
 
 		if (nameExists) {
-			throw new DuplicateProductException(normalizedName);
+			throw new DuplicateProductException("Product already exists: '" + normalizedName + "'");
 		}
 
 		Product product = new Product(normalizedName, type, threshold, stock, price);
@@ -70,6 +66,6 @@ public class InventoryService {
 
 	private Product findProductById(int productId) throws ProductNotFoundException {
 		return inventory.stream().filter(p -> p.getId() == productId).findFirst()
-				.orElseThrow(() -> new ProductNotFoundException(productId));
+				.orElseThrow(() -> new ProductNotFoundException("Product not found with ID: " + productId));
 	}
 }

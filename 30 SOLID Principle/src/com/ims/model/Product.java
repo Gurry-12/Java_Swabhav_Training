@@ -51,7 +51,7 @@ public class Product {
 
 	public void removeStock(int quantity) throws InsufficientStockException {
 		if (quantity > stock) {
-			throw new InsufficientStockException(quantity, stock);
+			throw new InsufficientStockException("Cannot remove " + quantity + " units. Current stock is " + stock);
 		}
 		stock -= quantity;
 	}
