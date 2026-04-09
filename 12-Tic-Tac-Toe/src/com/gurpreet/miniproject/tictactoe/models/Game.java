@@ -1,9 +1,9 @@
 package com.gurpreet.miniproject.tictactoe.models;
 
+import java.util.Scanner;
+
 import com.gurpreet.miniproject.tictactoe.enums.State;
 import com.gurpreet.miniproject.tictactoe.helpers.Helpers;
-import com.gurpreet.miniproject.tictactoe.players.*;
-import java.util.Scanner;
 
 public class Game {
 	private final Board board;
@@ -99,4 +99,5 @@ public class Game {
 			System.out.print("Please enter 1 or 2: ");
 		}
 	}
+	
 }
