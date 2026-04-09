@@ -1,10 +1,5 @@
 package com.collections.library.models;
 
-import com.collections.library.abstracts.Book;
-import com.collections.library.enums.Category;
-import com.collections.library.enums.Status;
-import com.collections.library.exceptions.InvalidBookException;
-
 public class AcademicBook extends Book {
 
 	private static long counter = 25000;

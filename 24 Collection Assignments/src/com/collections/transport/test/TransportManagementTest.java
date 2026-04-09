@@ -2,10 +2,10 @@ package com.collections.transport.test;
 
 import java.util.Scanner;
 
-import com.collections.transport.exceptions.InvalidPassengerException;
+import com.collections.transport.models.Helpers;
+import com.collections.transport.models.InvalidPassengerException;
 import com.collections.transport.models.TransportManager;
-import com.collections.transport.utility.Helpers;
-import com.collections.transport.utility.TransportUtility;
+import com.collections.transport.models.TransportUtility;
 
 public class TransportManagementTest {
 

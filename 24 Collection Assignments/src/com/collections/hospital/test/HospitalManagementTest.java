@@ -2,10 +2,10 @@ package com.collections.hospital.test;
 
 import java.util.Scanner;
 
-import com.collections.hospital.exceptions.InvalidPatientException;
+import com.collections.hospital.models.Helpers;
 import com.collections.hospital.models.Hospital;
-import com.collections.hospital.utility.HospitalUtility;
-import com.collections.hospital.utility.Helpers;
+import com.collections.hospital.models.HospitalUtility;
+import com.collections.hospital.models.InvalidPatientException;
 
 public class HospitalManagementTest {
 

@@ -2,10 +2,10 @@ package com.collections.order.test;
 
 import java.util.Scanner;
 
-import com.collections.order.exceptions.InvalidOrderException;
+import com.collections.order.models.Helpers;
+import com.collections.order.models.InvalidOrderException;
 import com.collections.order.models.OrderManager;
-import com.collections.order.utility.Helpers;
-import com.collections.order.utility.OrderUtility;
+import com.collections.order.models.OrderUtility;
 
 public class OrderManagementTest {
 

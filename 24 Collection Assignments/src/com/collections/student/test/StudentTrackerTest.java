@@ -2,10 +2,10 @@ package com.collections.student.test;
 
 import java.util.Scanner;
 
-import com.collections.student.exceptions.InvalidStudentException;
+import com.collections.student.models.Helpers;
+import com.collections.student.models.InvalidStudentException;
 import com.collections.student.models.StudentTracker;
-import com.collections.student.utility.Helpers;
-import com.collections.student.utility.StudentUtility;
+import com.collections.student.models.StudentUtility;
 
 public class StudentTrackerTest {
 

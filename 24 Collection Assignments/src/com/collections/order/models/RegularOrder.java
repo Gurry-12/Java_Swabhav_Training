@@ -1,9 +1,5 @@
 package com.collections.order.models;
 
-import com.collections.order.abstracts.Order;
-import com.collections.order.enums.OrderStatus;
-import com.collections.order.exceptions.InvalidOrderException;
-
 public class RegularOrder extends Order {
 
 	private static long counter = 1000;
