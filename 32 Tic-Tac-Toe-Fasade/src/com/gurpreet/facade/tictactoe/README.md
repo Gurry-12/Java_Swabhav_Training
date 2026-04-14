@@ -111,6 +111,12 @@ classDiagram
         DRAW
     }
 
+    class BoardSize {
+        THREE
+        FOUR
+        FIVE
+    }
+
     %% Exceptions
     class InvalidModeException {
         <<exception>>
@@ -152,7 +158,9 @@ classDiagram
         +showMainMenu() int
         +chooseGameMode() int
         +getPlayerName(prompt: String) String
+        +selectBoardSize() int
     }
 
     GameFacade ..> GameMenu : "uses"
+    
 ```
