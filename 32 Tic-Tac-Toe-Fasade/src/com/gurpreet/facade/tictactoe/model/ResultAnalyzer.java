@@ -5,52 +5,71 @@ import com.gurpreet.facade.tictactoe.model.enums.State;
 
 public class ResultAnalyzer {
 
-    private GameStatus status = GameStatus.ONGOING;
+	private GameStatus status = GameStatus.ONGOING;
 
-    public ResultAnalyzer() {
-        
-    }
+	public void checkWinner(Board board) {
+		int size = board.getSize();
 
-    public void checkWinner(Board board) {
-        // Rows
-        for (int i = 0; i < 3; i++) {
-            if (isSameState(board, i, 0, i, 1, i, 2)) {
-                status = GameStatus.WINNER;
-                return;
-            }
-        }
-        // Columns
-        for (int j = 0; j < 3; j++) {
-            if (isSameState(board, 0, j, 1, j, 2, j)) {
-                status = GameStatus.WINNER;
-                return;
-            }
-        }
-        // Diagonals
-        if (isSameState(board, 0, 0, 1, 1, 2, 2)) {
-            status = GameStatus.WINNER;
-            return;
-        }
-        if (isSameState(board, 0, 2, 1, 1, 2, 0)) {
-            status = GameStatus.WINNER;
-            return;
-        }
+		// Check rows
+		for (int i = 0; i < size; i++) {
+			if (isLineWin(board, i, 0, 0, 1, size)) {
+				status = GameStatus.WINNER;
+				return;
+			}
+		}
 
-        if (board.isFull()) {
-            status = GameStatus.DRAW;
-        } else {
-            status = GameStatus.ONGOING;
-        }
-    }
+		// Check columns
+		for (int j = 0; j < size; j++) {
+			if (isLineWin(board, 0, j, 1, 0, size)) {
+				status = GameStatus.WINNER;
+				return;
+			}
+		}
 
-    public GameStatus getStatus() {
-        return status;
-    }
+		// Check main diagonal (top-left to bottom-right)
+		if (isDiagonalWin(board, size, false)) {
+			status = GameStatus.WINNER;
+			return;
+		}
 
-    private boolean isSameState(Board board, int r1, int c1, int r2, int c2, int r3, int c3) {
-        State s1 = board.getCell(r1, c1).getState();
-        State s2 = board.getCell(r2, c2).getState();
-        State s3 = board.getCell(r3, c3).getState();
-        return s1 != State.EMPTY && s1 == s2 && s2 == s3;
-    }
+		// Check anti-diagonal (top-right to bottom-left)
+		if (isDiagonalWin(board, size, true)) {
+			status = GameStatus.WINNER;
+			return;
+		}
+
+		status = board.isFull() ? GameStatus.DRAW : GameStatus.ONGOING;
+	}
+
+	public GameStatus getStatus() {
+		return status;
+	}
+
+	private boolean isLineWin(Board board, int startRow, int startCol, int rowStep, int colStep, int size) {
+		State first = board.getCell(startRow, startCol).getState();
+		if (first == State.EMPTY)
+			return false;
+
+		for (int k = 1; k < size; k++) {
+			if (board.getCell(startRow + k * rowStep, startCol + k * colStep).getState() != first) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean isDiagonalWin(Board board, int size, boolean antiDiagonal) {
+		State first = antiDiagonal ? board.getCell(0, size - 1).getState() : board.getCell(0, 0).getState();
+
+		if (first == State.EMPTY)
+			return false;
+
+		for (int k = 1; k < size; k++) {
+			int col = antiDiagonal ? (size - 1 - k) : k;
+			if (board.getCell(k, col).getState() != first) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
