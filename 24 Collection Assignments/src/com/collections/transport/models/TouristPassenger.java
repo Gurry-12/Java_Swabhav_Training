@@ -1,8 +1,5 @@
 package com.collections.transport.models;
 
-import com.collections.transport.abstracts.Passenger;
-import com.collections.transport.exceptions.InvalidPassengerException;
-
 public class TouristPassenger extends Passenger {
 
     private static long counter = 5000;

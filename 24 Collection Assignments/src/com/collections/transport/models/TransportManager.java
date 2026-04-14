@@ -12,13 +12,6 @@ import java.util.Queue;
 import java.util.Scanner;
 import java.util.Set;
 
-import com.collections.transport.abstracts.Passenger;
-import com.collections.transport.comparator.RouteNameComparator;
-import com.collections.transport.enums.RouteType;
-import com.collections.transport.exceptions.InvalidPassengerException;
-import com.collections.transport.utility.Helpers;
-import com.collections.transport.utility.TransportUtility;
-
 public class TransportManager {
 
     private Set<Passenger> passengers;                       // HashSet — no duplicates

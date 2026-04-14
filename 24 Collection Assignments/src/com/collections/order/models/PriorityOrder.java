@@ -1,10 +1,5 @@
 package com.collections.order.models;
 
-import com.collections.order.abstracts.Order;
-import com.collections.order.enums.OrderStatus;
-import com.collections.order.enums.PriorityLevel;
-import com.collections.order.exceptions.InvalidOrderException;
-
 public class PriorityOrder extends Order {
 
     private static long counter = 2000;

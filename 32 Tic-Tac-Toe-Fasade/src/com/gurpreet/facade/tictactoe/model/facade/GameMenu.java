@@ -2,6 +2,7 @@ package com.gurpreet.facade.tictactoe.model.facade;
 
 import java.util.Scanner;
 
+import com.gurpreet.facade.tictactoe.model.enums.BoardSize;
 import com.gurpreet.facade.tictactoe.model.exception.InvalidModeException;
 import com.gurpreet.facade.tictactoe.model.helpers.Helpers;
 
@@ -28,7 +29,6 @@ public class GameMenu {
 	}
 
 	public int chooseGameMode() throws InvalidModeException {
-		System.out.println("=== Tic Tac Toe Game Started ===\n");
 		System.out.println("Choose game mode:");
 		System.out.println("1. Human vs Human");
 		System.out.println("2. Human vs AI");
@@ -45,5 +45,15 @@ public class GameMenu {
 	public String getPlayerName(String prompt) {
 		System.out.print(prompt);
 		return Helpers.validateStringLettersOnly(scanner);
+	}
+
+	public int selectBoardSize() {
+		BoardSize sizes[] = BoardSize.values();
+		 System.out.println("Select Board Sizes:");
+	        for (int i = 0; i < sizes.length; i++) {
+	            System.out.println((i + 1) + " : " + sizes[i]);
+	        }
+	        int choice = Helpers.validateIntRange(scanner, 1, sizes.length);
+	        return sizes[choice - 1].getSize();
 	}
 }

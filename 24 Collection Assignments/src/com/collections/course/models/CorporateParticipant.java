@@ -1,9 +1,5 @@
 package com.collections.course.models;
 
-import com.collections.course.abstracts.Participant;
-import com.collections.course.enums.Track;
-import com.collections.course.exceptions.InvalidParticipantException;
-
 public class CorporateParticipant extends Participant {
 
     private static long counter = 5000;

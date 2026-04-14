@@ -12,13 +12,6 @@ import java.util.Queue;
 import java.util.Scanner;
 import java.util.Set;
 
-import com.collections.course.abstracts.Participant;
-import com.collections.course.comparator.BatchNameComparator;
-import com.collections.course.enums.Track;
-import com.collections.course.exceptions.InvalidParticipantException;
-import com.collections.course.utility.EnrollmentUtility;
-import com.collections.course.utility.Helpers;
-
 public class EnrollmentManager {
 
     private Set<Participant> participants;                    // HashSet — no duplicate enrollments

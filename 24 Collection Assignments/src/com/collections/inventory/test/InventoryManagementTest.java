@@ -2,10 +2,10 @@ package com.collections.inventory.test;
 
 import java.util.Scanner;
 
-import com.collections.inventory.exceptions.InvalidProductException;
+import com.collections.inventory.models.Helpers;
+import com.collections.inventory.models.InvalidProductException;
 import com.collections.inventory.models.Inventory;
-import com.collections.inventory.utility.Helpers;
-import com.collections.inventory.utility.InventoryUtility;
+import com.collections.inventory.models.InventoryUtility;
 
 public class InventoryManagementTest {
 

@@ -15,7 +15,6 @@ public class GameEngine {
 	private Player currentPlayer;
 	private final ResultAnalyzer analyzer;
 
-	// Dependency Injection: The Engine no longer constructs its own dependencies!
 	public GameEngine(Board board, ResultAnalyzer analyzer, Player playerX, Player playerO) {
 		this.board = board;
 		this.analyzer = analyzer;
@@ -28,8 +27,7 @@ public class GameEngine {
 		while (true) {
 			TicTacToeUtil.display(board);
 
-			System.out.println(
-					currentPlayer.getName() + "'s turn (" + currentPlayer.getState() + ")");
+			System.out.println(currentPlayer.getName() + "'s turn (" + currentPlayer.getState() + ")");
 
 			// Get move from current player
 			int[] move = currentPlayer.getNextMove(board);
@@ -59,7 +57,8 @@ public class GameEngine {
 
 	public void processMove(int row, int col) throws InvalidMoveException {
 		if (!board.isValidMove(row, col)) {
-			throw new InvalidMoveException("Invalid move at position (" + row + ", " + col + "). The position is either out of bounds or already occupied.");
+			throw new InvalidMoveException("Invalid move at position (" + row + ", " + col
+					+ "). The position is either out of bounds or already occupied.");
 		}
 		board.markCell(row, col, currentPlayer.getState());
 	}

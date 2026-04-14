@@ -12,14 +12,6 @@ import java.util.Queue;
 import java.util.Scanner;
 import java.util.Set;
 
-import com.collections.hospital.abstracts.Patient;
-import com.collections.hospital.comparator.AgeNameComparator;
-import com.collections.hospital.enums.BloodGroup;
-import com.collections.hospital.enums.Department;
-import com.collections.hospital.exceptions.InvalidPatientException;
-import com.collections.hospital.utility.Helpers;
-import com.collections.hospital.utility.HospitalUtility;
-
 
 public class Hospital {
 

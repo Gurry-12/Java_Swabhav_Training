@@ -3,18 +3,25 @@ package com.gurpreet.facade.tictactoe.model;
 import com.gurpreet.facade.tictactoe.model.enums.State;
 
 public class Board {
-	private final Cell[][] cells = new Cell[3][3];
+	private final Cell[][] cells;
+	private int size;
+	
+	public Board(int size) {
+		this.size = size;
+		this.cells = new Cell[size][size];
+		createBoard(size);
+	}
 
-	public Board() {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
+	private void createBoard(int size2) {
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
 				cells[i][j] = new Cell();
 			}
 		}
 	}
 
 	public boolean isValidMove(int row, int col) {
-		return row >= 0 && row < 3 && col >= 0 && col < 3 && cells[row][col].isEmpty();
+		return row >= 0 && row < size && col >= 0 && col < size && cells[row][col].isEmpty();
 	}
 
 	public boolean markCell(int row, int col, State state) {
@@ -26,8 +33,8 @@ public class Board {
 	}
 
 	public boolean isFull() {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
 				if (cells[i][j].isEmpty()) {
 					return false;
 				}
@@ -37,9 +44,13 @@ public class Board {
 	}
 
 	public Cell getCell(int row, int col) {
-		if (row >= 0 && row < 3 && col >= 0 && col < 3) {
+		if (row >= 0 && row < size && col >= 0 && col < size) {
 			return cells[row][col];
 		}
 		return null;
+	}
+
+	public int getSize() {
+		return size;
 	}
 }

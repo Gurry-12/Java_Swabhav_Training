@@ -2,10 +2,10 @@ package com.collections.course.test;
 
 import java.util.Scanner;
 
-import com.collections.course.exceptions.InvalidParticipantException;
 import com.collections.course.models.EnrollmentManager;
-import com.collections.course.utility.EnrollmentUtility;
-import com.collections.course.utility.Helpers;
+import com.collections.course.models.EnrollmentUtility;
+import com.collections.course.models.Helpers;
+import com.collections.course.models.InvalidParticipantException;
 
 public class EnrollmentManagementTest {
 

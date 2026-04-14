@@ -10,13 +10,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-import com.collections.student.abstracts.Student;
-import com.collections.student.comparator.TotalMarksComparator;
-import com.collections.student.enums.Department;
-import com.collections.student.exceptions.InvalidStudentException;
-import com.collections.student.utility.Helpers;
-import com.collections.student.utility.StudentUtility;
-
 public class StudentTracker {
 
     private Set<Student> students;                         // HashSet — no duplicate students

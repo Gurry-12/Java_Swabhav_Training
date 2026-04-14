@@ -12,13 +12,6 @@ import java.util.Queue;
 import java.util.Scanner;
 import java.util.Set;
 
-import com.collections.inventory.abstracts.Product;
-import com.collections.inventory.comparator.CategoryPriceComparator;
-import com.collections.inventory.enums.ProductStatus;
-import com.collections.inventory.exceptions.InvalidProductException;
-import com.collections.inventory.utility.Helpers;
-import com.collections.inventory.utility.InventoryUtility;
-
 
 public class Inventory {
 

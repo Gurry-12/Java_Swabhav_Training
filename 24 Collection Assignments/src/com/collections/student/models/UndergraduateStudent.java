@@ -1,9 +1,5 @@
 package com.collections.student.models;
 
-import com.collections.student.abstracts.Student;
-import com.collections.student.enums.Department;
-import com.collections.student.exceptions.InvalidStudentException;
-
 public class UndergraduateStudent extends Student {
 
     private static long counter = 1000;

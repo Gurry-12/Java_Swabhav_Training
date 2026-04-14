@@ -1,10 +1,5 @@
 package com.collections.library.models;
 
-import com.collections.library.abstracts.Book;
-import com.collections.library.enums.PublishType;
-import com.collections.library.enums.Status;
-import com.collections.library.exceptions.InvalidBookException;
-
 public class Magazine extends Book {
 
 	private PublishType publishType;

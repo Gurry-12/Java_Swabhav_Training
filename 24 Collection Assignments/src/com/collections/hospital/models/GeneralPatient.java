@@ -1,10 +1,5 @@
 package com.collections.hospital.models;
 
-import com.collections.hospital.abstracts.Patient;
-import com.collections.hospital.enums.BloodGroup;
-import com.collections.hospital.enums.Department;
-import com.collections.hospital.exceptions.InvalidPatientException;
-
 public class GeneralPatient extends Patient {
 
     private static long counter = 1000;

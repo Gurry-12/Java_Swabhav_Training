@@ -1,9 +1,5 @@
 package com.collections.transport.models;
 
-import com.collections.transport.abstracts.Passenger;
-import com.collections.transport.enums.RouteType;
-import com.collections.transport.exceptions.InvalidPassengerException;
-
 public class DailyPassenger extends Passenger {
 
     private static long counter = 1000;

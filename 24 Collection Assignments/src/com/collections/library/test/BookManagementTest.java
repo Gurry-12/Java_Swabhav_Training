@@ -2,10 +2,10 @@ package com.collections.library.test;
 
 import java.util.Scanner;
 
-import com.collections.library.exceptions.InvalidBookException;
+import com.collections.library.models.BookUtility;
+import com.collections.library.models.InvalidBookException;
 import com.collections.library.models.Library;
-import com.collections.library.utility.BookUtility;
-import com.collections.student.utility.Helpers;
+import com.collections.student.models.Helpers;
 
 public class BookManagementTest {
 

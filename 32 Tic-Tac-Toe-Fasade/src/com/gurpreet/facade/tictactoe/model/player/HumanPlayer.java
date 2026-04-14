@@ -16,14 +16,16 @@ public class HumanPlayer extends Player {
 
     @Override
     public int[] getNextMove(Board board) {
+    	int size = board.getSize();
+    	int lastInput = size * size;
         while (true) {
-            System.out.print(name + " (" + state + "), enter from (1-9) as input: ");
+            System.out.print(name + " (" + state + "), enter from (1 - " + lastInput + ") as input: ");
             
             
-            int position = Helpers.validateInt(scanner);
+            int position = Helpers.validateIntPositive(scanner);
 
-            int row = (position - 1) / 3;
-            int col = (position - 1) % 3;
+            int row = (position - 1) / size;
+            int col = (position - 1) % size;
 
             if (board.isValidMove(row, col)) {
                 return new int[]{row, col};
