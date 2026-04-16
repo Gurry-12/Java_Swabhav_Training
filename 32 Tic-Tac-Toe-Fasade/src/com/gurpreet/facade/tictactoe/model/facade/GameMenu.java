@@ -48,12 +48,12 @@ public class GameMenu {
 	}
 
 	public int selectBoardSize() {
-		BoardSize sizes[] = BoardSize.values();
-		 System.out.println("Select Board Sizes:");
-	        for (int i = 0; i < sizes.length; i++) {
-	            System.out.println((i + 1) + " : " + sizes[i]);
-	        }
-	        int choice = Helpers.validateIntRange(scanner, 1, sizes.length);
-	        return sizes[choice - 1].getSize();
+		BoardSize[] sizes = BoardSize.values();
+		System.out.println("Select Board Sizes:");
+		for (int i = 0; i < sizes.length; i++) {
+			System.out.println((i + 1) + " : " + sizes[i]);
+		}
+		int choice = Helpers.validateIntRange(scanner, 1, sizes.length);
+		return sizes[choice - 1].getSize();
 	}
 }

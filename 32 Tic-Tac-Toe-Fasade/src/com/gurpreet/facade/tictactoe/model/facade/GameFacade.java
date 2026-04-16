@@ -48,13 +48,10 @@ public class GameFacade {
 				}
 			} catch (InvalidModeException e) {
 				System.out.println(e.getMessage());
-			} catch (Exception e) {
-				System.out.println("Unexpected error occurred: " + e.getMessage());
 			}
 		}
 
 	}
-
 
 	private void initializeGame(int size) {
 		boolean validInputMode = false;
@@ -82,9 +79,6 @@ public class GameFacade {
 				System.out.println(e.getMessage());
 			} catch (InvalidMoveException e) {
 				System.out.println(e.getMessage());
-
-			} catch (Exception e) {
-				System.out.println("Unexpected error occurred: " + e.getMessage());
 			}
 		}
 	}
