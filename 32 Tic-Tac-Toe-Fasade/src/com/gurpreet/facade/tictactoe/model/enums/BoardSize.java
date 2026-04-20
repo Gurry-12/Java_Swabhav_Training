@@ -1,7 +1,9 @@
 package com.gurpreet.facade.tictactoe.model.enums;
 
 public enum BoardSize {
-	THREE(3), FOUR(4), FIVE(5);
+	THREE(3),
+	FOUR(4),
+	FIVE(5);
 
 	private int size;
 

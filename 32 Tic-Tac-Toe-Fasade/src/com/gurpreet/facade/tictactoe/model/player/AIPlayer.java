@@ -14,7 +14,7 @@ public class AIPlayer extends Player {
 
 	@Override
 	public int[] getNextMove(Board board) {
-    	int size = board.getSize() * board.getSize();
+    	int size = board.getSize();
     	
 		while (true) {
 			int row = random.nextInt(size);
