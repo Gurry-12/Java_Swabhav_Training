@@ -78,10 +78,11 @@ public class InputHandler {
 		if (!service.checkStudentExist(studentId)) {
 			throw new StudentNotFoundException("Student Id not exist");
 		}
-		int courseId = chooseCourses();
+		int courseId = chooseStudentCourses(studentId);
 		double newFee = Helpers.validateDoublePositive(scanner, "Enter New Fee : ");
 		service.updateCourseFee(studentId, courseId, newFee);
 	}
+
 
 	public void cancelRegistrationData() {
 		System.out.println("Cancel Course Registration ");
@@ -118,8 +119,19 @@ public class InputHandler {
 		System.out.println(" Course-wise Student Count Report ");
 		service.getCourseWiseCount();
 	}
+	
+	public void addNewCourse() {
+		String course = Helpers.validateString(scanner, "Enter new course name you want to enter" );
+		service.addNewCourses(course);
+	}
 
-	public int chooseCourses() {
+	public void addNewDepartment() {
+		String department = Helpers.validateString(scanner, "Enter new department name you want to enter" );
+		service.addNewDepartment(department);
+	}
+
+
+	private int chooseCourses() {
 		List<String> listOfCourses = service.listAllCourses();
 		System.out.println("List of courses ");
 
@@ -130,7 +142,7 @@ public class InputHandler {
 
 	}
 
-	public int chooseDepartments() {
+	private int chooseDepartments() {
 		List<String> listOfDeptartments = service.listAllDepartments();
 		System.out.println("List of departments ");
 
@@ -138,6 +150,17 @@ public class InputHandler {
 			System.out.println((i + 1) + " " + listOfDeptartments.get(i));
 		}
 		return Helpers.validateIntRange(scanner, 1, listOfDeptartments.size(), "Please choose the deprtment");
+	}
+	
+	private int chooseStudentCourses(int studentId) {
+		List<String> listOfCourses = service.listStudentAllCourses(studentId);
+		System.out.println("List of courses ");
+
+		for (int i = 0; i < listOfCourses.size(); i++) {
+			System.out.println((i + 1) + " " + listOfCourses.get(i));
+		}
+		return Helpers.validateIntRange(scanner, 1, listOfCourses.size(), "Please choose the course");
+
 	}
 
 }

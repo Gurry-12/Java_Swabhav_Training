@@ -22,7 +22,7 @@ public class MainApp {
 			try {
 				displayMenu();
 
-				int choice = Helpers.validateIntRange(scanner, 1, 11, "Enter your choice");
+				int choice = Helpers.validateIntRange(scanner, 1, 13, "Enter your choice");
 
 				switch (choice) {
 
@@ -36,7 +36,9 @@ public class MainApp {
 				case 8 -> handler.deleteStudentData();
 				case 9 -> handler.highPayingStudentsReport();
 				case 10 -> handler.courseWiseCountReport();
-				case 11 -> {
+				case 11 -> handler.addNewCourse();
+				case 12 -> handler.addNewDepartment();
+				case 13 -> {
 					isRunning = false;
 					System.out.println("Thank you for visiting. ");
 				}
@@ -65,7 +67,9 @@ public class MainApp {
 				8. Delete Student
 				9. High Paying Students Report
 				10. Course-wise Student Count
-				11. Exit
+				11. Add Courses
+				12. Add Departments
+				13. Exit
 				""");
 		System.out.println();
 	}
