@@ -113,8 +113,6 @@ public class StudentService {
 
 			printStudentTable(records);
 
-		} catch (StudentEnrollmentException e) {
-			System.out.println(e.getMessage());
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
@@ -236,8 +234,6 @@ public class StudentService {
 			}
 			System.out.println("  " + "-".repeat(72));
 
-		} catch (StudentEnrollmentException e) {
-			System.out.println(e.getMessage());
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
@@ -263,8 +259,6 @@ public class StudentService {
 			}
 			System.out.println("  " + "-".repeat(47));
 
-		} catch (StudentEnrollmentException e) {
-			System.out.println(e.getMessage());
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
@@ -307,7 +301,45 @@ public class StudentService {
 		}
 	}
 
-	// ── Shared display helper ──────────────────────────────────────
+	public void addNewCourses(String course) {
+		try (Connection connection = DBUtil.getConnection()) {
+
+			int result = courseDAO.addNewCourses(connection, course);
+			if (result != 0) {
+				System.out.println("Course added successfully");
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+
+	public void addNewDepartment(String department) {
+		try (Connection connection = DBUtil.getConnection()) {
+
+			int result = departmentDAO.addNewDepartment(connection, department);
+			if (result != 0) {
+				System.out.println("Department added successfully");
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+
+	public List<String> listStudentAllCourses(int studentId) {
+		try (Connection connection = DBUtil.getConnection()) {
+
+			List<String> allCourses = courseDAO.getStudentAllCourses(connection, studentId);
+			if (allCourses == null || allCourses.isEmpty()) {
+				throw new StudentEnrollmentException("Course not found");
+			}
+			return allCourses;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	private void printStudentTable(List<String[]> rows) {
 		System.out.printf("%n  %-6s %-15s %-5s %-15s %-20s %-12s%n", "ID", "Name", "Age", "Department", "Course",
 				"Fees Paid");
@@ -317,4 +349,5 @@ public class StudentService {
 		}
 		System.out.println("  " + "-".repeat(82));
 	}
+
 }
