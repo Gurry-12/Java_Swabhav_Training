@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Employee Portal</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<div class="container">
+		<h1>Employee Management System</h1>
+		<hr>
+
+		<div class="menu-section">
+			<h3>Leave Actions</h3>
+			<p>Ready to take a break? Fill out the form below:</p>
+			<a href="leaveForm.jsp">
+				<button class="btn-primary">Apply for Leave</button>
+			</a>
+		</div>
+
+		<br>
+
+		<div class="menu-section">
+			<h3>Admin Actions</h3>
+			<p>View all existing leave requests in the system:</p>
+			<!-- Important: Link to the Servlet URL mapping, not the JSP file -->
+			<a href="viewLeaves">
+				<button class="btn-secondary">View All Applications</button>
+			</a>
+		</div>
+	</div>
+</body>
+</html>
