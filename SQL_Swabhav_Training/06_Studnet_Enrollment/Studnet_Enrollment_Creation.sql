@@ -61,3 +61,19 @@ INSERT INTO course (course_name) VALUES
 ('PYTHON'),
 ('OS'),
 ('CN');
+
+TRUNCATE TABLE registration;
+set foreign_key_checks = 0;
+TRUNCATE TABLE student;
+set foreign_key_checks = 1;
+TRUNCATE TABLE course;
+TRUNCATE TABLE department;
+
+select * from student;
+select * from registration;
+select * from department;
+select * from course;
+
+select * from registration r
+join course c
+on r.course_id = c.id

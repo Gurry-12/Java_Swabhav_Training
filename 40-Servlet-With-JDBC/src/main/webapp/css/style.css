@@ -1,0 +1,164 @@
+/* General Styles */
+body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background-color: #f4f7f6;
+	color: #333;
+	line-height: 1.6;
+	margin: 40px;
+}
+
+h1, h2 {
+	color: #2c3e50;
+	border-bottom: 2px solid #3498db;
+	padding-bottom: 10px;
+}
+
+/* Container for all content */
+.container {
+	background: #fff;
+	padding: 30px;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	max-width: 600px;
+	margin: auto;
+}
+
+/* Form Styling */
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+label {
+	margin-top: 10px;
+	font-weight: bold;
+}
+
+input[type="text"], input[type="number"], select, textarea {
+	width: 100%;
+	padding: 10px;
+	margin-top: 5px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+textarea {
+	height: 100px;
+}
+
+/* Button Styling */
+button, input[type="submit"] {
+	background-color: #3498db;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+	margin-top: 20px;
+	transition: background 0.3s ease;
+}
+
+button:hover, input[type="submit"]:hover {
+	background-color: #2980b9;
+}
+
+/* Error Messages (for sendRedirect feedback) */
+.error-msg {
+	background-color: #f8d7da;
+	color: #721c24;
+	padding: 10px;
+	border: 1px solid #f5c6cb;
+	border-radius: 4px;
+	margin-bottom: 20px;
+}
+
+/* Success Messages */
+.success-banner {
+	background-color: #d4edda;
+	color: #155724;
+	padding: 20px;
+	border: 1px solid #c3e6cb;
+	border-radius: 4px;
+	text-align: center;
+}
+
+/* Review Page Labels */
+.review-item {
+	background: #f9f9f9;
+	padding: 10px;
+	margin-bottom: 5px;
+	border-left: 5px solid #3498db;
+}
+
+.menu-section {
+	padding: 20px;
+	margin: 15px 0;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	background-color: #fafafa;
+}
+
+.btn-primary {
+	background-color: #3498db;
+}
+
+.btn-secondary {
+	background-color: #2ecc71; /* Green color for the View button */
+}
+
+button {
+	padding: 10px 25px;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 1rem;
+}
+
+/* Table Layout */
+.leave-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 20px 0;
+	font-size: 0.9em;
+	min-width: 400px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.leave-table thead tr {
+	background-color: #3498db;
+	color: #ffffff;
+	text-align: left;
+}
+
+.leave-table th, .leave-table td {
+	padding: 12px 15px;
+	border-bottom: 1px solid #dddddd;
+}
+
+/* Zebra Striping */
+.leave-table tbody tr:nth-of-type(even) {
+	background-color: #f3f3f3;
+}
+
+.leave-table tbody tr:last-of-type {
+	border-bottom: 2px solid #3498db;
+}
+
+/* Status styling */
+.status-cell {
+	font-weight: bold;
+	color: #27ae60; /* Green color for status */
+}
+
+.no-data {
+	text-align: center;
+	color: #7f8c8d;
+	font-style: italic;
+}
+
+.footer-actions {
+	margin-top: 20px;
+}
