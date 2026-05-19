@@ -9,6 +9,7 @@ import com.studentcourse.model.Course;
 import com.studentcourse.util.DBConnection;
 import com.studentcourse.validator.CourseValidator;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -32,7 +33,6 @@ public class AddCourseServlet extends HttpServlet {
 
 		if (!checkLogin(request, response))
 			return;
-
 		request.getRequestDispatcher("/WEB-INF/views/course-form.jsp").forward(request, response);
 	}
 
@@ -43,22 +43,32 @@ public class AddCourseServlet extends HttpServlet {
 		if (!checkLogin(request, response))
 			return;
 
-		// Get parameters safely
+		// Get parameters
 		String courseName = request.getParameter("courseName");
 		String duration = request.getParameter("duration");
 		String feesStr = request.getParameter("fees");
 		String trainerName = request.getParameter("trainerName");
 
 		// === Server-side Validation ===
-		CourseValidator.validateCourseNameField(courseName, 1, 100, "courseNameError", request);
+		CourseValidator.validateCourseNameField(courseName, 3, 100, "courseNameError", request);
 		CourseValidator.validateDuration(duration, "durationError", request);
 		CourseValidator.validateTrainerNameField(trainerName, 3, 80, "trainerNameError", request);
-
-		// Fees Validation
 		double fees = CourseValidator.validateFee(feesStr, "feesError", request);
 
-		// check errors
-		if (hasErrors(request)) {
+		// === Check for Duplicate Course Name (Only if basic validation passed) ===
+		if (!hasErrors(request)) {
+			try (Connection connection = DBConnection.getConnection()) {
+				if (coursesDAO.isCourseNameExists(connection, courseName)) {
+					request.setAttribute("courseNameError", "Course with this name already exists!");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				request.setAttribute("error", "Database error occurred.");
+			}
+		}
+
+		// If any validation error or duplicate found
+		if (hasErrors(request) || request.getAttribute("error") != null) {
 			// Repopulate form fields
 			request.setAttribute("courseName", courseName);
 			request.setAttribute("duration", duration);
@@ -69,7 +79,7 @@ public class AddCourseServlet extends HttpServlet {
 			return;
 		}
 
-		// All validations passed
+		// All validations passed → Save course
 		Course course = new Course(courseName, duration, fees, trainerName);
 
 		try (Connection connection = DBConnection.getConnection()) {

@@ -1,22 +1,21 @@
 package com.studentcourse.validator;
 
 import java.util.regex.Pattern;
-
 import jakarta.servlet.http.HttpServletRequest;
 
 public class CourseValidator {
 
 	private static final Pattern COURSE_NAME_PATTERN = Pattern.compile("^[a-zA-Z0-9\\s\\+\\#\\.\\-]+$");
 	private static final Pattern TRAINER_NAME_PATTERN = Pattern.compile("^[a-zA-Z\\s]+$");
-	private static final Pattern DURATION_PATTERN = Pattern.compile("^[a-zA-Z0-9\\s]+$");
+	private static final Pattern DURATION_PATTERN = Pattern.compile("^\\d+\\s+[a-zA-Z\\s]+$");
 
-	public static void validateCourseNameField(String value, int minLen, int maxLen,
-			String errorAttribute, HttpServletRequest request) {
+	public static void validateCourseNameField(String value, int minLen, int maxLen, String errorAttribute,
+			HttpServletRequest request) {
 
 		if (value == null || value.trim().isEmpty()) {
 			request.setAttribute(errorAttribute, "Course Name is required.");
 		} else if (!COURSE_NAME_PATTERN.matcher(value).matches()) {
-			request.setAttribute(errorAttribute, "Course Name should contain only letters and spaces.");
+			request.setAttribute(errorAttribute, "Course Name can contain letters, numbers, spaces, +, #, ., -");
 		} else if (value.trim().length() < minLen) {
 			request.setAttribute(errorAttribute, "Course Name must be at least " + minLen + " characters.");
 		} else if (value.trim().length() > maxLen) {
@@ -24,8 +23,8 @@ public class CourseValidator {
 		}
 	}
 
-	public static void validateTrainerNameField(String value, int minLen, int maxLen,
-			String errorAttribute, HttpServletRequest request) {
+	public static void validateTrainerNameField(String value, int minLen, int maxLen, String errorAttribute,
+			HttpServletRequest request) {
 
 		if (value == null || value.trim().isEmpty()) {
 			request.setAttribute(errorAttribute, "Trainer Name is required.");
@@ -39,12 +38,10 @@ public class CourseValidator {
 	}
 
 	public static void validateDuration(String value, String errorAttribute, HttpServletRequest request) {
-
 		if (value == null || value.trim().isEmpty()) {
 			request.setAttribute(errorAttribute, "Duration is required.");
-		} else if (!DURATION_PATTERN.matcher(value).matches()) {
-			request.setAttribute(errorAttribute,
-					"Duration can only contain letters, numbers and spaces (e.g., 6 Months)");
+		} else if (!DURATION_PATTERN.matcher(value.trim()).matches()) {
+			request.setAttribute(errorAttribute, "Duration should be in format like '6 Months', '12 Weeks', '1 Year'");
 		} else if (value.trim().length() < 3) {
 			request.setAttribute(errorAttribute, "Duration must be at least 3 characters.");
 		} else if (value.trim().length() > 50) {
@@ -62,8 +59,6 @@ public class CourseValidator {
 		} catch (NumberFormatException e) {
 			request.setAttribute(errorAttribute, "Please enter a valid fees amount.");
 		}
-		
 		return fees;
 	}
-
 }

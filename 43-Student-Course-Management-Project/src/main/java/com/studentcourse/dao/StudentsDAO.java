@@ -85,13 +85,26 @@ public class StudentsDAO {
 
 	public int getRegistrationCountByStudent(Connection connection, int studentId) throws SQLException {
 		String sqlQuery = "select count(*) from registrations where student_id = ?";
-		try (PreparedStatement ps = connection.prepareStatement(sqlQuery)) {
-			ps.setInt(1, studentId);
-			try (ResultSet rs = ps.executeQuery()) {
-				if (rs.next())
-					return rs.getInt(1);
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+			preparedStatement.setInt(1, studentId);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next())
+					return resultSet.getInt(1);
 			}
 		}
 		return 0;
+	}
+
+	public boolean varifyDuplicateStudent(Connection connection, String email, String phone) throws SQLException {
+
+		String sqlQury = "select * from students where email = ? and phone = ?";
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQury)) {
+			preparedStatement.setString(1, email);
+			preparedStatement.setString(2, phone);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			return resultSet.next();
+		}
 	}
 }

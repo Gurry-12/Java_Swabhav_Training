@@ -52,24 +52,27 @@ public class AddStudentServlet extends HttpServlet {
 		String ageStr = request.getParameter("age");
 		String city = request.getParameter("city");
 
-		// Server-side Validation
-		// name Validation
+		// === Server-side Validation using Validator ===
 		StudentValidator.validateNameField(studentName, "Student Name", 2, 100, "studentNameError", request);
-
-		// city Validation
 		StudentValidator.validateNameField(city, "City", 2, 50, "cityError", request);
-
-		// Email Validation
 		StudentValidator.validateEmail(email, "emailError", request);
-
-		// Phone Validation
 		StudentValidator.validatePhone(phone, "phoneError", request);
-
-		// Age Validation
 		StudentValidator.validateAge(ageStr, request);
 
-		// If any validation error
-		if (hasErrors(request)) {
+		// === Duplicate Check (Email & Phone) ===
+		if (!hasErrors(request)) {
+			try (Connection connection = DBConnection.getConnection()) {
+				if (studentsDAO.varifyDuplicateStudent(connection, email, phone)) {
+					request.setAttribute("error", "A student with this email or phone already exists.");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				request.setAttribute("error", "Database error occurred while checking duplicates.");
+			}
+		}
+
+		// If any validation error or duplicate found
+		if (hasErrors(request) || request.getAttribute("error") != null) {
 			// Repopulate form fields
 			request.setAttribute("studentName", studentName);
 			request.setAttribute("email", email);
@@ -82,6 +85,7 @@ public class AddStudentServlet extends HttpServlet {
 			return;
 		}
 
+		// All checks passed -> Save to database
 		int age = Integer.parseInt(ageStr);
 		Student student = new Student(studentName, email, phone, age, city);
 
@@ -91,6 +95,12 @@ public class AddStudentServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("error", "Failed to add student. Please try again.");
+			request.setAttribute("studentName", studentName);
+			request.setAttribute("email", email);
+			request.setAttribute("phone", phone);
+			request.setAttribute("age", ageStr);
+			request.setAttribute("city", city);
+
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/student-form.jsp");
 			rd.forward(request, response);
 		}

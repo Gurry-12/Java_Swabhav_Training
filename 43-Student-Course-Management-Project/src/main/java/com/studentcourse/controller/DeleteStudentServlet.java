@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import com.studentcourse.dao.StudentsDAO;
 import com.studentcourse.util.DBConnection;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 public class DeleteStudentServlet extends HttpServlet {
 
 	private StudentsDAO studentsDAO;
-	
+
 	@Override
 	public void init() throws ServletException {
 		studentsDAO = new StudentsDAO();
@@ -28,29 +29,53 @@ public class DeleteStudentServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false);
-		if (session == null || session.getAttribute("loggedInUser") == null) {
-			response.sendRedirect("login");
+		if (!checkLogin(request, response)) {
 			return;
 		}
 
-		int id = Integer.parseInt(request.getParameter("id"));
+		String idStr = request.getParameter("id");
+		if (idStr == null || idStr.trim().isEmpty()) {
+			response.sendRedirect(request.getContextPath() + "/students");
+			return;
+		}
+
+		int studentId = Integer.parseInt(idStr);
 
 		try (Connection connection = DBConnection.getConnection()) {
 
-			int count = studentsDAO.getRegistrationCountByStudent(connection, id);
+			int registrationCount = studentsDAO.getRegistrationCountByStudent(connection, studentId);
 
-			if (count > 0) {
-				request.setAttribute("error", "Cannot delete! Student has active registration.");
-				response.sendRedirect(request.getContextPath() + "/students");
+			if (registrationCount > 0) {
+				// Cannot delete - has active registrations
+				request.setAttribute("error",
+						"Cannot delete! Student is registered in " + registrationCount + " course(s).");
+
+				// Forward to student list so error message can be shown
+				RequestDispatcher rd = request.getRequestDispatcher("/students");
+				rd.forward(request, response);
+
 			} else {
-				studentsDAO.deleteStudent(connection, id);
+				// Safe to delete
+				studentsDAO.deleteStudent(connection, studentId);
 				response.sendRedirect(request.getContextPath() + "/students");
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			response.sendRedirect(request.getContextPath() + "/students");
+			request.setAttribute("error", "Database error occurred while deleting student.");
+
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/error.jsp");
+			rd.forward(request, response);
 		}
+	}
+
+	private boolean checkLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		HttpSession session = request.getSession(false);
+		if (session == null || session.getAttribute("loggedInUser") == null) {
+			response.sendRedirect(request.getContextPath() + "/login");
+			return false;
+		}
+		return true;
 	}
 }
