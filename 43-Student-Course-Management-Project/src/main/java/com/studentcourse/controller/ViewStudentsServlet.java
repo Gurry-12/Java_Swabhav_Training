@@ -33,7 +33,7 @@ public class ViewStudentsServlet extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 		if (session == null || session.getAttribute("loggedInUser") == null) {
-			response.sendRedirect("login");
+			response.sendRedirect(request.getContextPath() + "/login");
 			return;
 		}
 
@@ -48,7 +48,7 @@ public class ViewStudentsServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("error", "DB Connection Issue");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/student-list.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/error.jsp");
 			rd.forward(request, response);
 		}
 	}

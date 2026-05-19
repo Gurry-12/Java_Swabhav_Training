@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class AdminDAO {
 
-	public boolean varifyAdmin(Connection connection, String username, String password) throws SQLException {
+	public boolean verifyAdmin(Connection connection, String username, String password) throws SQLException {
 		String sqlQuery = "select * from admin where username = ? and password = ?";
 
 		try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {

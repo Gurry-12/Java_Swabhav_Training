@@ -31,7 +31,7 @@ public class LoginPageServlet extends HttpServlet {
 				}
 			}
 		}
-		request.setAttribute("username", username);
+		request.setAttribute("rememberedUsername", username);
 
 		request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
 	}

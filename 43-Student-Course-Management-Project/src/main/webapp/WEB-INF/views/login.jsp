@@ -61,8 +61,8 @@
 					<div class="mb-3">
 						<label for="username" class="form-label">Username</label> <input
 							type="text" id="username" name="username" class="form-control"
-							placeholder="Enter your username" value="${username}" required
-							autofocus>
+							placeholder="Enter your username" value="${rememberedUsername}"
+							required autofocus>
 					</div>
 
 					<div class="mb-3">

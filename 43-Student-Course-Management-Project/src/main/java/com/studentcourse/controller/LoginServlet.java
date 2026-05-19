@@ -36,14 +36,15 @@ public class LoginServlet extends HttpServlet {
 
 		try (Connection connection = DBConnection.getConnection()) {
 
-			if (adminDAO.varifyAdmin(connection, username, password)) {
+			if (adminDAO.verifyAdmin(connection, username, password)) {
 
-				HttpSession session = request.getSession();
+				HttpSession session = request.getSession(true);
+				session.setMaxInactiveInterval(60 * 60); // 1 hour
 				session.setAttribute("loggedInUser", username);
 
 				if (rememberMe) {
 					Cookie cookie = new Cookie("username", username);
-					cookie.setMaxAge(7 * 24 * 60 * 60); // 7 days
+					cookie.setMaxAge(60 * 60); // 1 hour
 					response.addCookie(cookie);
 				} else {
 					Cookie cookie = new Cookie("username", "");
@@ -61,8 +62,8 @@ public class LoginServlet extends HttpServlet {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			request.setAttribute("error", "DB Connection Issue");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
+			request.setAttribute("errorMessage", "Database connection error. Please try again later.");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/error.jsp");
 			rd.forward(request, response);
 		}
 	}

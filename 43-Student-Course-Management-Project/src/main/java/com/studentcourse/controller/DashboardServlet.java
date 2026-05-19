@@ -50,9 +50,8 @@ public class DashboardServlet extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			request.setAttribute("error", "DB Connection Issue");
-			request.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(request, response);
 		}
 	}
 

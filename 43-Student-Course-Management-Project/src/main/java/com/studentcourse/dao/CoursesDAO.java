@@ -13,9 +13,10 @@ public class CoursesDAO {
 
 	public int countTotalCourses(Connection connection) throws SQLException {
 		String sqlQuery = "select count(*) from courses";
-		try (PreparedStatement ps = connection.prepareStatement(sqlQuery); ResultSet rs = ps.executeQuery()) {
-			if (rs.next())
-				return rs.getInt(1);
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+				ResultSet resultSet = preparedStatement.executeQuery()) {
+			if (resultSet.next())
+				return resultSet.getInt(1);
 		}
 		return 0;
 	}
@@ -24,11 +25,13 @@ public class CoursesDAO {
 		List<Course> courses = new ArrayList<>();
 		String sqlQuery = "select * from courses order by course_id ";
 
-		try (PreparedStatement ps = connection.prepareStatement(sqlQuery); ResultSet rs = ps.executeQuery()) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+				ResultSet resultSet = preparedStatement.executeQuery()) {
 
-			while (rs.next()) {
-				Course course = new Course(rs.getInt("course_id"), rs.getString("course_name"),
-						rs.getString("duration"), rs.getDouble("fees"), rs.getString("trainer_name"));
+			while (resultSet.next()) {
+				Course course = new Course(resultSet.getInt("course_id"), resultSet.getString("course_name"),
+						resultSet.getString("duration"), resultSet.getDouble("fees"),
+						resultSet.getString("trainer_name"));
 				courses.add(course);
 			}
 		}
@@ -37,12 +40,13 @@ public class CoursesDAO {
 
 	public Course getCourseById(Connection connection, int id) throws SQLException {
 		String sqlQuery = "select * from courses where course_id = ?";
-		try (PreparedStatement ps = connection.prepareStatement(sqlQuery)) {
-			ps.setInt(1, id);
-			try (ResultSet rs = ps.executeQuery()) {
-				if (rs.next()) {
-					return new Course(rs.getInt("course_id"), rs.getString("course_name"), rs.getString("duration"),
-							rs.getDouble("fees"), rs.getString("trainer_name"));
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+			preparedStatement.setInt(1, id);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next()) {
+					return new Course(resultSet.getInt("course_id"), resultSet.getString("course_name"),
+							resultSet.getString("duration"), resultSet.getDouble("fees"),
+							resultSet.getString("trainer_name"));
 				}
 			}
 		}
@@ -51,44 +55,60 @@ public class CoursesDAO {
 
 	public int addCourse(Connection connection, Course course) throws SQLException {
 		String sqlQuery = "insert into courses (course_name, duration, fees, trainer_name) values (?, ?, ?, ?)";
-		try (PreparedStatement ps = connection.prepareStatement(sqlQuery)) {
-			ps.setString(1, course.getCourseName());
-			ps.setString(2, course.getDuration());
-			ps.setDouble(3, course.getFees());
-			ps.setString(4, course.getTrainerName());
-			return ps.executeUpdate();
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+			preparedStatement.setString(1, course.getCourseName());
+			preparedStatement.setString(2, course.getDuration());
+			preparedStatement.setDouble(3, course.getFees());
+			preparedStatement.setString(4, course.getTrainerName());
+			return preparedStatement.executeUpdate();
 		}
 	}
 
 	public int updateCourse(Connection connection, Course course) throws SQLException {
 		String sqlQuery = "update courses set course_name=?, duration=?, fees=?, trainer_name=? where course_id=?";
-		try (PreparedStatement ps = connection.prepareStatement(sqlQuery)) {
-			ps.setString(1, course.getCourseName());
-			ps.setString(2, course.getDuration());
-			ps.setDouble(3, course.getFees());
-			ps.setString(4, course.getTrainerName());
-			ps.setInt(5, course.getCourseId());
-			return ps.executeUpdate();
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+			preparedStatement.setString(1, course.getCourseName());
+			preparedStatement.setString(2, course.getDuration());
+			preparedStatement.setDouble(3, course.getFees());
+			preparedStatement.setString(4, course.getTrainerName());
+			preparedStatement.setInt(5, course.getCourseId());
+			return preparedStatement.executeUpdate();
 		}
 	}
 
 	public int deleteCourse(Connection connection, int id) throws SQLException {
 		String sqlQuery = "delete from courses where course_id = ?";
-		try (PreparedStatement ps = connection.prepareStatement(sqlQuery)) {
-			ps.setInt(1, id);
-			return ps.executeUpdate();
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+			preparedStatement.setInt(1, id);
+			return preparedStatement.executeUpdate();
 		}
 	}
 
-	public int getRegistrationCountByCourse(Connection connection, int courseId) throws SQLException {
-		String sqlQuery = "select count(*) from registrations where course_id = ?";
-		try (PreparedStatement ps = connection.prepareStatement(sqlQuery)) {
-			ps.setInt(1, courseId);
-			try (ResultSet rs = ps.executeQuery()) {
-				if (rs.next())
-					return rs.getInt(1);
+	public int getRegistrationCountByCourse(Connection connection, int courseId, String status) throws SQLException {
+		String sqlQuery = "select count(*) from registrations where course_id = ? and status = ?";
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+			preparedStatement.setInt(1, courseId);
+			preparedStatement.setString(2, status);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next())
+					return resultSet.getInt(1);
 			}
 		}
 		return 0;
+	}
+
+	public boolean isCourseNameExists(Connection connection, String courseName) throws SQLException {
+
+		String sqlQuery = "select count(*) from courses where lower(course_name) = lower(?)";
+
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+			preparedStatement.setString(1, courseName.trim());
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next()) {
+					return resultSet.getInt(1) > 0;
+				}
+			}
+		}
+		return false;
 	}
 }
