@@ -2,4 +2,9 @@ create database if not exists student_db;
 
 use student_db;
 
-select * from student_db.student;
+create table student(
+id int primary key,
+name varchar(100)
+);
+
+select * from student;
